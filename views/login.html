@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<h1>Login</h1>
+<style>
+    html,
+    body {
+        background-color: #655a5d;
+        margin:0;
+        padding:2px 4px 3px 4px;
+        height:100%;
+        width:100%;
+    }
+    table, td, th {
+        border: 1px solid #8a8181;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 50%;
+    }
+
+    th {
+        height: 50px;
+    }
+</style>
+
+<form method="post" action="">
+    <table id="myTable" >
+        <tr>
+            <td width="15%">Username:</td>
+            <td><input type="text" id="username" name="username" style="width: 99%"/></td>
+        </tr>
+        <tr>
+            <td>Password:</td>
+            <td><input type="password" name="password" id="password"style="width: 99%"/></td>
+        </tr>
+        <tr>
+            <td> </td>
+            <td><input type="submit" value="Login"style="width: 30%;float: right"/></td>
+        </tr>
+
+    </table>
+
+    <!--<label for="username">Username:</label>
+    <input type="text" id="username" name="username"/>
+    <label for="password">Password:</label>
+    <input type="password" name="password" id="password"/>
+    <input type="submit" value="Login"/>-->
+</form>
+<script>
+    $(function() {
+        $("form").on("submit", function(evt) {
+            evt.preventDefault();
+
+            return false;
+        })
+
+    })
+   </script>
+
+</body>
+</html>

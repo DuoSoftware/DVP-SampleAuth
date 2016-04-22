@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <title></title>
+</head>
+<body>
+<style>
+    html,
+    body {
+        background-color: #655a5d;
+        margin:0;
+        padding:2px 4px 3px 4px;
+        height:100%;
+        width:100%;
+    }
+    table, td, th {
+        border: 1px solid #8a8181;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 50%;
+    }
+
+    th {
+        height: 50px;
+    }
+</style>
+<form method="POST" action="">
+    <h1>Register</h1>
+    <table id="myTable" >
+        <tr>
+            <td width="15%">Username:</td>
+            <td><input type="text" id="username" name="username" style="width: 99%"/></td>
+        </tr>
+        <tr>
+            <td>Password:</td>
+            <td><input type="password" name="password" id="password"style="width: 99%"/></td>
+        </tr>
+        <tr>
+            <td>Tenant:</td>
+            <td><input type="text" id="tenant" name="tenant" style="width: 99%"/></td>
+        </tr>
+        <tr>
+            <td>Company:</td>
+            <td><input type="text" id="company" name="company" style="width: 99%"/></td>
+        </tr>
+        <tr>
+            <td> </td>
+            <td><input type="submit" value="Register" style="width: 30%;float: right"/></td>
+        </tr>
+
+    </table>
+
+    <!--<label for="username">Username:</label>
+    <input type="text" id="username" name="username"/>
+    <br>
+    <label for="password">Password:</label>
+    <input type="password" minlength="2" required id="password" name="password"/>
+    <br>
+    <label for="tenant">Tenant:</label>
+    <input type="text" id="tenant" name="tenant"/>
+    <br>
+    <label for="company">Company:</label>
+    <input type="text" id="company" name="company"/>
+    <br>
+    <input type="submit" value="Register"/>-->
+</form>
+
+</body>
+</html>
