@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Get Your Access Token</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+</head>
+<body>
+<h1>Password Credentials Grant Type</h1>
+<style>
+    html,
+    body {
+        background-color: #655a5d;
+        margin:0;
+        padding:2px 4px 3px 4px;
+        height:100%;
+        width:100%;
+    }
+    table, td, th {
+        border: 1px solid #8a8181;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 50%;
+    }
+
+    th {
+        height: 50px;
+    }
+</style>
+<form method="POST" action="">
+
+    <table id="myTable" >
+        <tr>
+            <td width="20%">Client Id:</td>
+            <td><input id="ards" name="ards" type="text" style="width: 99%"/></td>
+        </tr>
+        <tr>
+            <td>Client Secret:</td>
+            <td><input type="pbx" id="pbx" name="client_secret" style="width: 99%"/></td>
+        </tr>
+        <tr>
+            <td>Username : </td>
+            <td><input type="campaing" id="campaing"  style="width: 99%"/></td>
+        </tr>
+        <tr>
+            <td>Password: </td>
+            <td><input type="text" id="allow" style="width: 99%"/></td>
+        </tr>
+        <tr>
+            <td> </td>
+            <td><input type="submit" value="Get a Token" style="width: 30%;float: right"/></td>
+        </tr>
+    </table>
+
+
+</form>
+
+<!--<h1>Authorization Code Grant Type</h1>-->
+
+
+<script>
+
+    var getQueryString = function ( field, url ) {
+        var href = url ? url : window.location.href;
+        var reg = new RegExp( '[?&]' + field + '=([^&#]*)', 'i' );
+        var string = reg.exec(href);
+        return string ? string[1] : null;
+    };
+
+    $(function() {
+        $("form").on("submit",function(evt) {
+            evt.preventDefault();
+
+            $("body").html($.ajax({
+                type: "POST",
+                contentType: "application/x-www-form-urlencoded",
+                async:false,
+
+                url: "/oauth/authorise/?response_type=code&client_id="+getQueryString("client_id")+"&redirect_uri="+getQueryString("redirect_uri"),
+                data: {allow: "yes"}
+            }).responseText);
+
+            return false;
+
+        })
+    })
+
+</script>
+
+
+
+</body>
+</html>
