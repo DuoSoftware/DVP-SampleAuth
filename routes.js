@@ -366,3 +366,6 @@ exports.addUserQuote = function(req,res) {
     function findToken(token) {}
 };
 
+exports.getClientScope = function(clientId) {
+
+};

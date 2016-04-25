@@ -15,6 +15,7 @@ var express = require("express"),
 
 
 var d = require("./model.js");
+var jsdom = require('jsdom');
 
 var app = express();
 var server = app.listen(port);
@@ -80,28 +81,110 @@ app.post('/oauth/authorise', function (req, res, next) {
     }
 
     //TODO:  SHOW THEM  "do you authorise xyz app to access your content?" page
+    if (req.body.allow == "yes") {
 
-    req.body.allow = "yes";
-    next();
-
-  /*  if (!req.body.allow) {
-
-
-        var fs = require("fs");
-        fs.readFile('views/ConfirmationDialog.html',function(err,data) {
-            if (err || !data) {
-                res.end("Please try logging in again later.");
-            }
-            res.end(data);
-        });
-
-    }
-    else {
-        req.body.allow = "yes";
         next();
     }
+    else {
 
-*/
+        var databaseUrl = "oauth",
+            collections = ["oauth_client_scope"],
+            db = require("mongojs")(databaseUrl, collections),
+            redirect = null;
+
+        jsdom.env('views/ConfirmationDialog.html', function (err, window) {
+
+            if (err) {
+                res.end(err);
+            }
+            else {
+                db.oauth_client_scope.find({client_id: req.query.client_id}, function (err, users) {
+
+                    var element = window.document.getElementById("userScope");
+                    if (users && users.length) {
+                        var userScope = users[0].client_scope;
+
+                        userScope.forEach(function (item) {
+
+                            var tr = window.document.createElement("tr");
+                            var td = window.document.createElement("td");
+                            var t = window.document.createTextNode(item.resource);
+                            td.appendChild(t);
+                            tr.appendChild(td);
+                            if(Array.isArray(item.actions)){
+                                item.actions.forEach(function (act) {
+                                    var td1 = window.document.createElement("td");
+                                    var t = window.document.createTextNode(act);
+                                    td1.appendChild(t);
+                                    tr.appendChild(td1);
+                                });
+                            }
+                            else{
+                                var td1 = window.document.createElement("td");
+                                var t = window.document.createTextNode(item.actions);
+                                td1.appendChild(t);
+                                tr.appendChild(td1);
+                            }
+
+                            //element.insertChildBefore(tr);
+                            element.insertBefore(tr, element.lastElementChild);
+                        });
+                    }
+                    else {
+
+                        var tr = window.document.createElement("tr");
+                        var td = window.document.createElement("td");
+                        var t = window.document.createTextNode("No Scopes Define");
+                        td.appendChild(t);
+                        tr.appendChild(td);
+                        element.appendChild(tr);
+                    }
+
+
+
+                    res.writeHead(200, {'Content-Type': 'text/html'});
+                    res.write(window.document.documentElement.outerHTML);
+                    res.end();
+                });
+
+
+            }
+        });
+
+
+        /*
+         var fs = require("fs");
+         fs.readFile('views/ConfirmationDialog.html', function (err, data) {
+         if (err || !data) {
+         res.end("Please try logging in again later.");
+         }
+         res.writeHead(200, {'Content-Type': 'text/html'});
+         res.write(data);
+         res.end();
+         })
+         */
+
+    }
+
+
+    /*  if (!req.body.allow) {
+
+
+     var fs = require("fs");
+     fs.readFile('views/ConfirmationDialog.html',function(err,data) {
+     if (err || !data) {
+     res.end("Please try logging in again later.");
+     }
+     res.end(data);
+     });
+
+     }
+     else {
+     req.body.allow = "yes";
+     next();
+     }
+
+     */
 }, app.oauth.authCodeGrant(function (req, next) {
     // The first param should to indicate an error
     // The second param should a bool to indicate if the user did authorise the app

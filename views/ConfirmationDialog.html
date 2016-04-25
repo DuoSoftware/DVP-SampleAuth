@@ -2,11 +2,10 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title>Get Your Access Token</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <title></title>
 </head>
 <body>
-<h1>Password Credentials Grant Type</h1>
+<h1>Permission Review</h1>
 <style>
     html,
     body {
@@ -28,68 +27,65 @@
     th {
         height: 50px;
     }
-</style>
-<form method="POST" action="">
+    label {
+        float:left;
+        margin: 5px 0px;
+    }
 
-    <table id="myTable" >
+    input {
+
+        margin: 5px 0px;
+        width: 200px;
+
+    }
+
+    .clear {
+        clear: both;
+    }
+</style>
+
+<form method="post" action="">
+
+
+    <div id="userScope1"></div>
+
+    <table style="height: 114px;" border="1" width="358"><caption>&nbsp;</caption>
+        <tbody id="userScope">
         <tr>
-            <td width="20%">Client Id:</td>
-            <td><input id="ards" name="ards" type="text" style="width: 99%"/></td>
+            <td style="text-align: center; width: 70%"><strong>Resource</strong></td>
+            <td style="text-align: center;" colspan="3"><br /><strong>Actions</strong><br /><br /></td>
         </tr>
+
         <tr>
-            <td>Client Secret:</td>
-            <td><input type="pbx" id="pbx" name="client_secret" style="width: 99%"/></td>
+            <td style="text-align: right; vertical-align: middle;" colspan="3">
+                <label for="allow">Do You Accept :</label>
+                <input type="checkbox" class="checkbox" id="allow" name="allow" value="yes" checked>
+                <div class="clear"></div>
+            </td>
+            <td style="text-align: center;"><input type="submit" value="Submit"/></td>
         </tr>
-        <tr>
-            <td>Username : </td>
-            <td><input type="campaing" id="campaing"  style="width: 99%"/></td>
-        </tr>
-        <tr>
-            <td>Password: </td>
-            <td><input type="text" id="allow" style="width: 99%"/></td>
-        </tr>
-        <tr>
-            <td> </td>
-            <td><input type="submit" value="Get a Token" style="width: 30%;float: right"/></td>
-        </tr>
+        </tbody>
     </table>
 
+<br>
 
+
+    <!--<label for="username">Username:</label>
+    <input type="text" id="username" name="username"/>
+    <label for="password">Password:</label>
+    <input type="password" name="password" id="password"/>
+    <input type="submit" value="Login"/>-->
 </form>
-
-<!--<h1>Authorization Code Grant Type</h1>-->
-
-
 <script>
-
-    var getQueryString = function ( field, url ) {
-        var href = url ? url : window.location.href;
-        var reg = new RegExp( '[?&]' + field + '=([^&#]*)', 'i' );
-        var string = reg.exec(href);
-        return string ? string[1] : null;
-    };
-
     $(function() {
-        $("form").on("submit",function(evt) {
+        $("form").on("submit", function(evt) {
             evt.preventDefault();
 
-            $("body").html($.ajax({
-                type: "POST",
-                contentType: "application/x-www-form-urlencoded",
-                async:false,
-
-                url: "/oauth/authorise/?response_type=code&client_id="+getQueryString("client_id")+"&redirect_uri="+getQueryString("redirect_uri"),
-                data: {allow: "yes"}
-            }).responseText);
-
             return false;
-
         })
+
     })
-
 </script>
-
-
 
 </body>
 </html>
