@@ -1,12 +1,24 @@
 /**
  * Created by Ivan on 4.7.2015 г..
  */
-var config = require('config');
+var config = require('config');var config = require('config');
 var redis = require('redis');
 var redisip = config.Security.ip;
 var redisport = config.Security.port;
-
 var redisClient = redis.createClient(redisport, redisip);
+
+redisClient.on("error", function (err) {
+    console.log("Redis connection error  " + err);
+});
+
+redisClient.on("connect", function (err) {
+    redisClient.select(config.Security.redisdb, redis.print);
+});
+
+redisClient.auth(config.Security.password, function (error) {
+    if (error)
+        console.log("Error Redis : " + error);
+});
 
 var model = module.exports,
     databaseUrl = "oauth",
@@ -111,7 +123,7 @@ model.generateToken = function (type, req, callback) {
             payload.exp = moment().add(7, 'days').unix();
             payload.tenant = users[0].tenant;
             payload.company = users[0].company;
-
+            payload.client = username;
             payload.scope = users[0].client_scope;
 
             var secret = uuid.v4();

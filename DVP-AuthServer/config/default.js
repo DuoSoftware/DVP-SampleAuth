@@ -18,21 +18,24 @@ module.exports = {
   "Redis":
   {
     "ip": "45.55.142.207",
-    "port": 6379
-
+    "port": "6389",
+    "user": "duo",
+    "password": "DuoS123"
   },
   "Security":
   {
-    "ip" : "45.55.142.207",
-    "port": 6379
+    "ip": "45.55.142.207",
+    "port":6389,
+    "user": "duo",
+    "password": "DuoS123",
+    "redisdb":0
   },
-
 
   "Host":
   {
     "vdomain": "localhost",
     "domain": "localhost",
-    "port": "9999",
+    "port": 9999,
     "version": "1.0"
   },
 
