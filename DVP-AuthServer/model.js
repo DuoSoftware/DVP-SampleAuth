@@ -108,6 +108,7 @@ model.generateToken = function (type, req, callback) {
     var clientId = authInfo[0];
     var clientSecret = authInfo[1];
     var username = req.body.username;
+    var resourceId = req.body.resourceId;
 
     db.oauth_client_scope.find({client_id: clientId, client_secret: clientSecret}, function (err, users) {
 
@@ -123,7 +124,7 @@ model.generateToken = function (type, req, callback) {
             payload.exp = moment().add(7, 'days').unix();
             payload.tenant = users[0].tenant;
             payload.company = users[0].company;
-            payload.client = username;
+            payload.client = resourceId;
             payload.scope = users[0].client_scope;
 
             var secret = uuid.v4();

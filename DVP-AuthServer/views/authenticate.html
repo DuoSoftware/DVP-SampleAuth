@@ -41,6 +41,10 @@
             <td><input type="text" id="client_secret" name="client_secret" style="width: 99%"/></td>
         </tr>
         <tr>
+            <td>Resource Id:</td>
+            <td><input type="text" id="resourceId" name="resourceId" style="width: 99%"/></td>
+        </tr>
+        <tr>
             <td>Username : </td>
             <td><input type="text" id="username"  style="width: 99%"/></td>
         </tr>
@@ -95,7 +99,7 @@
                     'Authorization' : "Basic " + auth
                 },
                 url: "/oauth/token",
-                data: {grant_type: "password",username: $("#username").val(), password: $("#password").val()
+                data: {grant_type: "password",username: $("#username").val(), password: $("#password").val(),resourceId: $("#resourceId").val()
                 }
             }).responseText);
 
